@@ -1,12 +1,16 @@
 #2016-2017 PERSONAL PROJECTS: TurtleChat!
 #WRITE YOUR NAME HERE!
+'Nisreen'
 
 #####################################################################################
 #                                   IMPORTS                                         #
 #####################################################################################
 #import the turtle module
+import turtle
 #import the Client class from the turtle_chat_client module
+from turtle_chat_client import Client
 #Finally, from the turtle_chat_widgets module, import two classes: Button and TextInput
+from turtle_chat_widgets import Button, TextInput
 #####################################################################################
 #####################################################################################
 
@@ -35,6 +39,30 @@
 #
 #3. If you want to make a newline character (i.e. go to the next line), just add
 #   \r to your string.  Test it out at the Python shell for practice
+class TextBox(TextInput):
+
+    def draw_box(self):
+
+        self.draw = turtle.clone()
+        self.draw.hideturtle()
+        self.draw.penup()
+        self.draw.goto(self.width/2,0)
+        self.draw.pendown()
+        self.draw.goto(-self.width/2,0)
+        self.draw.goto(-self.width/2,-self.height)
+        self.draw.goto(self.width/2,-self.height)
+        self.draw.goto(self.width/2,0)
+
+        self.draw.stamp()
+        print('draw_box works!!!')
+
+    def write_msg(self):
+
+        self.writer.clear()
+
+        self.writer.write(self.new_msg)
+
+            
 #####################################################################################
 #####################################################################################
 
@@ -53,9 +81,14 @@
 #      input: view.  This will be an instance of the View class you will make next
 #      That class will have methods inside of it to help
 #      you send messages and update message displays.
-#####################################################################################
-#####################################################################################
 
+
+#####################################################################################
+#####################################################################################
+class SendButton(Button):
+    def fun(self,
+    
+    
 
 ##################################################################
 #                             View                               #
@@ -80,8 +113,12 @@ class View:
         ###
         #Store the username and partner_name into the instance.
         ###
+        self.username=username
+        self.partner_name=partner_name
 
         #Make a new client object and store it in this instance.
+
+        self.my_client=Client(hostname='chatz!')
 
         #Set screen dimensions using turtle.setup
         #You can get help on this function, as with other turtle functions,
@@ -91,6 +128,9 @@ class View:
         #   help(turtle.setup)
         #
         #at the Python shell.
+
+        turtle.setup(_SCREEN_WIDTH)
+        turtle.setup(_SCREEN_HEIGHT)
 
         #This list will store all of the messages.
         #You can add strings to the front of the list using
