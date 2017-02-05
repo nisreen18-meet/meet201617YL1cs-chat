@@ -45,6 +45,7 @@ class TextBox(TextInput):
 
         self.draw = turtle.clone()
         self.draw.hideturtle()
+
         self.draw.penup()
         self.draw.goto(self.width/2,0)
         self.draw.pendown()
@@ -54,7 +55,7 @@ class TextBox(TextInput):
         self.draw.goto(self.width/2,0)
 
         self.draw.stamp()
-        print('draw_box works!!!')
+        print('it works!')
 
     def write_msg(self):
 
@@ -86,7 +87,12 @@ class TextBox(TextInput):
 #####################################################################################
 #####################################################################################
 class SendButton(Button):
-    def fun(self,
+
+    def fun(self,x=None,y=None):
+        print("hello")
+        
+    
+        
     
     
 
@@ -118,11 +124,12 @@ class View:
 
         #Make a new client object and store it in this instance.
 
-        self.my_client=Client(hostname='chatz!')
+        self.my_client=Client(hostname='chat!')
 
         #Set screen dimensions using turtle.setup
         #You can get help on this function, as with other turtle functions,
         #by typing
+        
         #
         #   import turtle
         #   help(turtle.setup)
