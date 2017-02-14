@@ -1,3 +1,4 @@
+
 #2016-2017 PERSONAL PROJECTS: TurtleChat!
 #WRITE YOUR NAME HERE!
 'Nisreen'
@@ -37,7 +38,7 @@ from turtle_chat_widgets import Button, TextInput
 #
 #   self.writer.clear()
 #
-#3. If you want to make a newline character (i.e. go to the next line), just add
+#If you want to make a newline character (i.e. go to the next line), just add
 #   \r to your string.  Test it out at the Python shell for practice
 class TextBox(TextInput):
 
@@ -53,14 +54,11 @@ class TextBox(TextInput):
         self.draw.goto(-self.width/2,-self.height)
         self.draw.goto(self.width/2,-self.height)
         self.draw.goto(self.width/2,0)
-
-        self.draw.stamp()
-        print('it works!')
+    
 
     def write_msg(self):
 
         self.writer.clear()
-
         self.writer.write(self.new_msg)
 
             
@@ -78,6 +76,7 @@ class TextBox(TextInput):
 #    you will need to call the send method of your Client instance
 # 2. update the messages that you see on the screen
 #
+
 #HINT: You may want to override the __init__ method so that it takes one additional
 #      input: view.  This will be an instance of the View class you will make next
 #      That class will have methods inside of it to help
@@ -87,15 +86,13 @@ class TextBox(TextInput):
 #####################################################################################
 #####################################################################################
 class SendButton(Button):
-
+    def __init__(self,view):
+        super(SendButton,self).__init__(pos=(0,-150))
+        self.view=view
     def fun(self,x=None,y=None):
-        print("hello")
+        self.view.send_msg()
         
     
-        
-    
-    
-
 ##################################################################
 #                             View                               #
 ##################################################################
@@ -124,7 +121,7 @@ class View:
 
         #Make a new client object and store it in this instance.
 
-        self.my_client=Client(hostname='chat!')
+        self.my_client=Client()
 
         #Set screen dimensions using turtle.setup
         #You can get help on this function, as with other turtle functions,
@@ -136,8 +133,8 @@ class View:
         #
         #at the Python shell.
 
-        turtle.setup(_SCREEN_WIDTH)
-        turtle.setup(_SCREEN_HEIGHT)
+
+        turtle.setup(width = self._SCREEN_WIDTH, height = self._SCREEN_HEIGHT)
 
         #This list will store all of the messages.
         #You can add strings to the front of the list using
@@ -157,10 +154,14 @@ class View:
         #Store them inside of this instance
         ###
 
+        self.textbox = TextBox()
+        self.snd_btn = SendButton(self)
+
         ###
         #Call your setup_listeners() function, if you have one,
         #and any other remaining setup functions you have invented.
         ###
+
 
     def send_msg(self):
         '''
