@@ -180,6 +180,10 @@ class View:
         It should call self.display_msg() to cause the message
         display to be updated.
         '''
+        self.my_client.send(self.textbox.new_msg)
+        self.msg_queue.append(self.textbox.new_msg)
+        self.textbox.clear_msg()
+        self.display_msg()
         
 
     def get_msg(self):
@@ -196,6 +200,8 @@ class View:
 
         Then, it can call turtle.listen()
         '''
+        turtle.onkeypress(self.send_btn.fun, 'Return')
+        turtle.listen()
         
 
     def msg_received(self,msg):
@@ -213,7 +219,7 @@ class View:
         #or append (to put at the end).
         #
         #Then, call the display_msg method to update the display
-        self.msg_queue.insert(0,msg)
+        self.msg_queue.append(msg)
         self.display_msg()
 
     def display_msg(self):
@@ -221,8 +227,8 @@ class View:
         This method should update the messages displayed in the screen.
         You can get the messages you want from self.msg_queue
         '''
-        self.me.clear()
-        self.me.write(self.msg_queue[0])
+        self.turtle_clone.clear()
+        self.turtle_clone.write(self.msg_queue[-1])
 ##############################################################
 ##############################################################
 
