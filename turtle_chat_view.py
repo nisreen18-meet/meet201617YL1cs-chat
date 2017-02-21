@@ -86,8 +86,8 @@ class TextBox(TextInput):
 #####################################################################################
 #####################################################################################
 class SendButton(Button):
-    def __init__(self,view):
-        super(SendButton,self).__init__(pos=(0,-150))
+    def __init__(self,my_turtle=None,shape=None,pos(0,0),view=None):
+        super(SendButton,self).__init__(my_turtle=None,shape=None,pos=(0,-150))
         self.view=view
     def fun(self,x=None,y=None):
         self.view.send_msg()
@@ -118,10 +118,11 @@ class View:
         ###
         self.username=username
         self.partner_name=partner_name
+        self.my_client=Client()
+        turtle.setup(width = self._SCREEN_WIDTH, height = self._SCREEN_HEIGHT)
 
         #Make a new client object and store it in this instance.
 
-        self.my_client=Client()
 
         #Set screen dimensions using turtle.setup
         #You can get help on this function, as with other turtle functions,
@@ -134,7 +135,7 @@ class View:
         #at the Python shell.
 
 
-        turtle.setup(width = self._SCREEN_WIDTH, height = self._SCREEN_HEIGHT)
+        
 
         #This list will store all of the messages.
         #You can add strings to the front of the list using
@@ -180,8 +181,8 @@ class View:
         It should call self.display_msg() to cause the message
         display to be updated.
         '''
-        self.my_client.send(self.textbox.new_msg)
-        self.msg_queue.append(self.textbox.new_msg)
+        self.my_client.send(self.TextBox.new_msg)
+        self.msg_queue.append(self.TextBox.new_msg)
         self.textbox.clear_msg()
         self.display_msg()
         
