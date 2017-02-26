@@ -86,7 +86,7 @@ class TextBox(TextInput):
 #####################################################################################
 #####################################################################################
 class SendButton(Button):
-    def __init__(self,my_turtle=None,shape=None,pos(0,0),view=None):
+    def __init__(self,view):
         super(SendButton,self).__init__(my_turtle=None,shape=None,pos=(0,-150))
         self.view=view
     def fun(self,x=None,y=None):
@@ -143,32 +143,29 @@ class View:
         #or at the end of the list using
         #   self.msg_queue.append(a_msg_string)
         self.msg_queue=[]
-        self.me=turtle.clone()
-        self.me.penup()
-        self.me.goto(-170,-100)
 
         ###
         #Create one turtle object for each message to display.
         #You can use the clear() and write() methods to erase
         #and write messages for each
         ###
-
+        self.display=turtle.clone()
+        self.display.hideturtle()
+        self.display.penup()
+        self.display.goto(-100,100)
         ###
         #Create a TextBox instance and a SendButton instance and
         #Store them inside of this instance
         ###
 
-        self.TextBox = TextBox()
-        self.send_btn = SendButton(view=self)
-        self.setup_listeners()
+        self.textbox = TextBox()
+        self.send_button = SendButton(self)
 
         ###
         #Call your setup_listeners() function, if you have one,
         #and any other remaining setup functions you have invented.
         ###
-        self.my_client.send(self.TextBox.new_msg)
-        self.msg_queue.append(self.TextBox.new_msg)
-        self.display_msg()
+        self.setup_listeners()
 
 
     def send_msg(self):
@@ -181,8 +178,8 @@ class View:
         It should call self.display_msg() to cause the message
         display to be updated.
         '''
-        self.my_client.send(self.TextBox.new_msg)
-        self.msg_queue.append(self.TextBox.new_msg)
+        self.my_client.send(self.textbox.new_msg)
+        self.msg_queue.insert(0,self.textbox.new_msg)
         self.textbox.clear_msg()
         self.display_msg()
         
@@ -201,7 +198,7 @@ class View:
 
         Then, it can call turtle.listen()
         '''
-        turtle.onkeypress(self.send_btn.fun, 'Return')
+        turtle.onkeypress(self.send_button.fun, 'Return')
         turtle.listen()
         
 
@@ -220,7 +217,7 @@ class View:
         #or append (to put at the end).
         #
         #Then, call the display_msg method to update the display
-        self.msg_queue.append(msg)
+        self.msg_queue.insert(0,show_this_msg)
         self.display_msg()
 
     def display_msg(self):
@@ -228,8 +225,8 @@ class View:
         This method should update the messages displayed in the screen.
         You can get the messages you want from self.msg_queue
         '''
-        self.turtle_clone.clear()
-        self.turtle_clone.write(self.msg_queue[-1])
+        self.display.clear()
+        self.display.write(self.msg_queue[0])
 ##############################################################
 ##############################################################
 
