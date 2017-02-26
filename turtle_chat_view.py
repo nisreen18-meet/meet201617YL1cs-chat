@@ -86,7 +86,11 @@ class TextBox(TextInput):
 #####################################################################################
 #####################################################################################
 class SendButton(Button):
+<<<<<<< HEAD
     def __init__(self,view):
+=======
+    def __init__(self, view):
+>>>>>>> 1ced968423f22e72aac025385aa7d8e331ab0d87
         super(SendButton,self).__init__(my_turtle=None,shape=None,pos=(0,-150))
         self.view=view
     def fun(self,x=None,y=None):
@@ -179,7 +183,11 @@ class View:
         display to be updated.
         '''
         self.my_client.send(self.textbox.new_msg)
+<<<<<<< HEAD
         self.msg_queue.insert(0,self.textbox.new_msg)
+=======
+        self.msg_queue.insert(0, self.textbox.new_msg)
+>>>>>>> 1ced968423f22e72aac025385aa7d8e331ab0d87
         self.textbox.clear_msg()
         self.display_msg()
         
